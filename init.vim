@@ -5,7 +5,9 @@
 
 " PDF viewer for vimtex: Add SumatraPDF to $PATH
 
-"-----------------------------Vim-Plug------------------------------------------
+" Install https://anaconda.org/conda-forge/python-language-server in env
+
+"-----------------------------Vim-Plug-----------------------------------------
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -23,7 +25,7 @@ Plug 'jalvesaq/Nvim-R'
 " This is a Vim plugin to support Python development using Conda 
 Plug 'cjrh/vim-conda'
 
-" A dark color scheme for Vim/Neovim based off the Material Pale Night color scheme.
+" A dark color scheme for Vim/Neovim based off Material Pale Night color scheme.
 Plug 'drewtempelmeyer/palenight.vim'
 
 " Syntax hightlighting cf. Atom.
@@ -35,29 +37,37 @@ Plug 'itchyny/lightline.vim'
 " Highlight the part of a line that doesn't fit into textwidth
 Plug 'whatyouhide/vim-lengthmatters'
 
-"Deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
-" Deoplete-jedi for python support
-Plug 'zchee/deoplete-jedi'
-
 " LaTeX plugin for Neovim
 Plug 'lervag/vimtex'
 
-" Automatic quote and bracket completion
-Plug 'jiangmiao/auto-pairs'
+" Coc is an intellisense engine for Vim/Neovim.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
-"-----------------------------Settings------------------------------------------
+
+"----------------------------General Settings---------------------------------
 " Remap leader key from "\" to space
 let mapleader="\<Space>"
 
 " Set encoding to UTF-8
 set encoding=utf-8
 
+" Set textwidth at 79
+set tw=79
+
+" Enable syntax highlighting.
+syntax enable
+
+" Enable line numbers on startup.
+set number
+
+" Allow pasting and copying from outside Vim.
+set clipboard^=unnamed,unnamedplus
+
+" Display a confirmation dialog when closing an unsaved file.
+set confirm
+
+"----------------------------Plugin Settings-----------------------------------
 " Settings for Pale Night color scheme
 set background=dark
 colorscheme palenight
@@ -81,63 +91,149 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-" Enable syntax highlighting.
-syntax enable
-
-" Enable line numbers on startup.
-set number
-
-" Allow pasting and copying from outside Vim.
-set clipboard^=unnamed,unnamedplus
-
-" Display a confirmation dialog when closing an unsaved file.
-set confirm
-
-"NERDTReeToggle map to the F6 key.
-map <F6> :NERDTreeToggle<CR>
-
-" Set textwidth at 79
-set tw=79
-
-" Deoplete.
-let g:deoplete#enable_at_startup = 1
-
-" Neosnippet Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" maximum candidate window length
-call deoplete#custom#source('_', 'max_menu_width', 79)
-
-" LaTeX
-let g:vimtex_compiler_progname = 'nvr'
-" This is new style
-call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'tex': g:vimtex#re#deoplete
-      \})
-
 " settings for sumatraPDF
 let g:vimtex_view_general_viewer = 'SumatraPDF'
 let g:vimtex_view_general_options
     \ = '-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
+" Coc settings
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to ensure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> (usually the ENTER key) to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+"NERDTReeToggle map to the F6 key.
+map <F6> :NERDTreeToggle<CR>
+
+" VimTeX
+let g:vimtex_compiler_progname = 'nvr'
+
+"----------------------------Language Settings------------------------------------------
 " Python
-" Full path to conda env for python 3 executable
+" Full path to conda env containing python 3 executable
 let g:python3_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/neovim3/python'
