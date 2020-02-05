@@ -12,7 +12,6 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/AppData/Local/nvim-data/plugged')
-
 " Make sure you use single quotes
 
 "NERDTree is a file system explorer for the Vim editor.
@@ -48,6 +47,13 @@ call plug#end()
 "----------------------------General Settings---------------------------------
 " Remap leader key from "\" to space
 let mapleader="\<Space>"
+
+" To map <Esc> to exit terminal-mode:
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <M-[> <Esc>
+  tnoremap <C-v><Esc> <Esc>
+endif
 
 " Set encoding to UTF-8
 set encoding=utf-8
