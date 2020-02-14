@@ -44,35 +44,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-"----------------------------General Settings---------------------------------
-" Remap leader key from "\" to space
-let mapleader="\<Space>"
-
-" To map <Esc> to exit terminal-mode:
-if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
-  tnoremap <M-[> <Esc>
-  tnoremap <C-v><Esc> <Esc>
-endif
-
-" Set encoding to UTF-8
-set encoding=utf-8
-
-" Set textwidth at 79
-set tw=79
-
-" Enable syntax highlighting.
-syntax enable
-
-" Enable line numbers on startup.
-set number
-
-" Allow pasting and copying from outside Vim.
-set clipboard^=unnamed,unnamedplus
-
-" Display a confirmation dialog when closing an unsaved file.
-set confirm
-
 "----------------------------Plugin Settings-----------------------------------
 " Settings for Pale Night color scheme
 set background=dark
@@ -238,6 +209,32 @@ map <F6> :NERDTreeToggle<CR>
 
 " VimTeX
 let g:vimtex_compiler_progname = 'nvr'
+
+"----------------------------General Settings---------------------------------
+" To map <Esc> to exit terminal-mode:
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <M-[> <Esc>
+  tnoremap <C-v><Esc> <Esc>
+endif
+
+" Set encoding to UTF-8
+set encoding=utf-8
+
+" Set textwidth at 79
+set tw=79
+
+" Enable syntax highlighting.
+syntax enable
+
+" Enable line numbers on startup.
+set number
+
+" Allow pasting and copying from outside Vim.
+set clipboard^=unnamed,unnamedplus
+
+" Display a confirmation dialog when closing an unsaved file.
+set confirm
 
 "----------------------------Language Settings------------------------------------------
 " Python
