@@ -1,17 +1,14 @@
-﻿" For python support in conda: " conda install -c conda-forge neovim " in shell
-
-" For deoplete python support, make specific conda env to paste the full 
-" path to in this file
+﻿" For python support in conda (run from shell): " conda install -c conda-forge neovim " in shell
 
 " PDF viewer for vimtex: Add SumatraPDF to $PATH
 
-" Install https://anaconda.org/conda-forge/python-language-server in env
+" Run "conda install -c conda-forge python-language-server " in each env for language-server support
 
 "-----------------------------Vim-Plug-----------------------------------------
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/AppData/Local/nvim-data/plugged')
+call plug#begin('C:/Users/MBATENS/AppData/Local/nvim-data/plugged')
 " Make sure you use single quotes
 
 "NERDTree is a file system explorer for the Vim editor.
@@ -210,6 +207,9 @@ map <F6> :NERDTreeToggle<CR>
 " VimTeX
 let g:vimtex_compiler_progname = 'nvr'
 
+" Fix for VimTeX not loading when .tex file is opened
+let g:tex_flavor = 'latex'
+
 "----------------------------General Settings---------------------------------
 " To map <Esc> to exit terminal-mode:
 if has('nvim')
@@ -237,6 +237,18 @@ set clipboard^=unnamed,unnamedplus
 set confirm
 
 "----------------------------Language Settings------------------------------------------
-" Python
+" Full path to conda env containing python 2 executable
+" For python support in conda (run from shell): " conda install -c conda-forge neovim " in shell
+let g:python_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/python2_env/python'
+
 " Full path to conda env containing python 3 executable
-let g:python3_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/neovim3/python'
+" For python support in conda (run from shell): " conda install -c conda-forge neovim " in shell
+let g:python3_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/python3_env/python'
+
+" Neovim remote (Control nvim processes using "nvr" commandline tool)
+" Install in separate env " pip install neovim-remote "
+let g:vimtex_compiler_progname = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/nvr_env/Scripts/nvr'
+
+" Full path to conda env containing R executable
+" Created using " conda create -n r_env r-essentials r-base "
+let g:R_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/r_env/r'
