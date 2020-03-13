@@ -251,4 +251,4 @@ let g:vimtex_compiler_progname = 'C:/Users/MBATENS/AppData/Local/Continuum/minic
 
 " Full path to conda env containing R executable
 " Created using " conda create -n r_env r-essentials r-base "
-let g:R_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/r_env/r'
+let g:R_host_prog = 'C:\Users\MBATENS\AppData\Local\R\R-3.6.3\bin\x64'
