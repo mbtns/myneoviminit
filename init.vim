@@ -4,6 +4,8 @@
 
 " Run "conda install -c conda-forge python-language-server " in each env for language-server support
 
+" In " coc-settings.json " (after install using Vim-Plug) add the following line to the python interpreter location
+" python.pythonPath":"C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/python3_env/python",
 "-----------------------------Vim-Plug-----------------------------------------
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -17,9 +19,6 @@ Plug 'preservim/nerdtree'
 " This plugin improves Vim's support for editing R code and makes it
 " possible to integrate Vim with R. ! Check dependencies (git doc)! 
 Plug 'jalvesaq/Nvim-R'
-
-" This is a Vim plugin to support Python development using Conda 
-Plug 'cjrh/vim-conda'
 
 " A dark color scheme for Vim/Neovim based off Material Pale Night color scheme.
 Plug 'drewtempelmeyer/palenight.vim'
