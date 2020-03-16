@@ -190,8 +190,7 @@ nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Find symbol of current document nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -251,4 +250,6 @@ let g:vimtex_compiler_progname = 'C:/Users/MBATENS/AppData/Local/Continuum/minic
 
 " Full path to conda env containing R executable
 " Created using " conda create -n r_env r-essentials r-base "
-let g:R_host_prog = 'C:\Users\MBATENS\AppData\Local\R\R-3.6.3\bin\x64'
+let g:R_path = 'C:\Users\MBATENS\AppData\Local\R\R-3.6.3\bin\x64'
+" Full path to rtools folder
+let Rtools_path = "C:\Users\MBATENS\AppData\Local\Rtools"
