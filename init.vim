@@ -16,10 +16,6 @@ call plug#begin('C:/Users/MBATENS/AppData/Local/nvim-data/plugged')
 "NERDTree is a file system explorer for the Vim editor.
 Plug 'preservim/nerdtree'
 
-" This plugin improves Vim's support for editing R code and makes it
-" possible to integrate Vim with R. ! Check dependencies (git doc)! 
-Plug 'jalvesaq/Nvim-R'
-
 " A dark color scheme for Vim/Neovim based off Material Pale Night color scheme.
 Plug 'drewtempelmeyer/palenight.vim'
 
@@ -247,8 +243,29 @@ let g:python3_host_prog = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/e
 " Install in separate env " pip install neovim-remote "
 let g:vimtex_compiler_progname = 'C:/Users/MBATENS/AppData/Local/Continuum/miniconda3/envs/nvr_env/Scripts/nvr'
 
-" Full path to conda env containing R executable
-" Created using " conda create -n r_env r-essentials r-base "
-let g:R_path = 'C:\Users\MBATENS\AppData\Local\R\R-3.6.3\bin\x64'
-" Full path to rtools folder
-let Rtools_path = "C:\Users\MBATENS\AppData\Local\Rtools"
+"----------------------------Learning Vim-----------------------------------------------
+" Disable arrow keys / newbie crutches
+" Remove newbie crutches in Command Mode
+cnoremap <Down> <Nop>
+cnoremap <Left> <Nop>
+cnoremap <Right> <Nop>
+cnoremap <Up> <Nop>
+
+" Remove newbie crutches in Insert Mode
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
+
+" Remove newbie crutches in Normal Mode
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+
+" Remove newbie crutches in Visual Mode
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Up> <Nop>
+
